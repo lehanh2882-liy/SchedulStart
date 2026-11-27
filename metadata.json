@@ -1,0 +1,8 @@
+{
+  "name": "Thời Khóa Biểu Tiếng Anh Starters & Kho Tài Liệu",
+  "description": "Thời khóa biểu học tiếng Anh Starters 60 phút mỗi ngày kèm theo dõi tiến độ, sao thưởng và kho tài liệu tập trung.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

@@ -1,0 +1,126 @@
+@import "tailwindcss";
+
+:root {
+  --sky-deep: #0e4d6c;
+  --sky-mid: #1d82b4;
+  --sky-light: #ebf7fc;
+  --sky-surface: rgba(255, 255, 255, 0.95);
+  --sky-surface-strong: #ffffff;
+  --sky-border: rgba(14, 77, 108, 0.14);
+  --sky-border-strong: rgba(29, 130, 180, 0.36);
+  --sky-shadow: 0 10px 30px -8px rgba(14, 77, 108, 0.14);
+  --ease-settle: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  margin: 0;
+  font-family: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: var(--sky-deep);
+  background-color: var(--sky-light);
+  line-height: 1.55;
+  min-height: 100dvh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Fixed atmospheric sky layer (avoids mobile background-attachment: fixed jank) */
+.sky-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-color: var(--sky-light);
+  background-size: cover;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+}
+
+.sky-backdrop::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(235, 247, 252, 0.18) 0%,
+    rgba(235, 247, 252, 0.28) 55%,
+    rgba(235, 247, 252, 0.42) 100%
+  );
+}
+
+.font-display {
+  font-family: "Plus Jakarta Sans", "DM Sans", sans-serif;
+}
+
+.font-mono-num {
+  font-family: "JetBrains Mono", monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+/* Crisp card surface without blur */
+.glass-panel {
+  background: var(--sky-surface);
+  border: 1px solid var(--sky-border);
+  box-shadow: var(--sky-shadow);
+}
+
+.glass-card {
+  background: var(--sky-surface-strong);
+  border: 1px solid var(--sky-border);
+  transition:
+    border-color 180ms var(--ease-settle),
+    background-color 180ms var(--ease-settle),
+    transform 180ms var(--ease-settle),
+    box-shadow 180ms var(--ease-settle);
+}
+
+.glass-card:hover {
+  border-color: var(--sky-border-strong);
+}
+
+/* Hide scrollbars cleanly for horizontal mobile rails */
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Accessible focus ring */
+:where(button, a, input):focus-visible {
+  outline: 2px solid var(--sky-mid);
+  outline-offset: 2px;
+}
+
+/* Safe area bottom padding for mobile thumb bar */
+.pb-safe {
+  padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
